@@ -452,26 +452,30 @@ td { padding: 12px 0; border-top: 0.5px solid var(--border); font-size: 13px; ve
    RESPONSIVO — MOBILE
 ═══════════════════════════ */
 @media (max-width: 768px) {
-  /* Layout vira coluna */
+  /* Layout vira coluna única */
   .layout {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
 
-  /* Sidebar vira bottom nav */
+  /* Sidebar vira bottom nav fixo */
   .sidebar {
     position: fixed;
     bottom: 0; left: 0; right: 0;
+    top: auto;
     height: auto;
+    min-height: 0;
     flex-direction: row;
     padding: 0;
-    z-index: 100;
-    border-top: 0.5px solid rgba(255,255,255,0.1);
+    padding-bottom: env(safe-area-inset-bottom);
+    z-index: 999;
+    border-top: 0.5px solid rgba(255,255,255,0.15);
     overflow: visible;
     align-items: stretch;
   }
 
-  .logo, .tagline, .nav-label, .sidebar-bottom { display: none; }
+  .logo, .tagline, .nav-label, .sidebar-bottom { display: none !important; }
 
   .nav-item {
     flex: 1;
@@ -483,46 +487,55 @@ td { padding: 12px 0; border-top: 0.5px solid var(--border); font-size: 13px; ve
     border-radius: 0;
     font-size: 10px;
     text-align: center;
+    min-width: 0;
   }
 
-  .nav-item .icon { font-size: 20px; width: auto; }
-  .nav-item.active { background: rgba(143,217,168,0.12); }
+  .nav-item .icon { font-size: 18px; width: auto; display: block; }
+  .nav-item.active { background: rgba(143,217,168,0.15); }
 
-  /* Main ocupa tudo menos o bottom nav */
+  /* Main ocupa tudo, com padding para não ficar atrás do bottom nav */
   .main {
-    padding: 20px 16px 90px 16px;
-    min-height: 100vh;
-    order: -1;
+    flex: 1;
+    padding: 24px 16px 100px 16px;
+    overflow-y: auto;
+    width: 100%;
   }
 
   /* Headers menores */
-  .page-title { font-size: 26px; }
-  .page-header { margin-bottom: 20px; }
+  .page-title { font-size: 24px; }
+  .page-header { margin-bottom: 16px; }
 
   /* Summary grid: 2x2 */
-  .summary-grid { grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-  .summary-card { padding: 14px; }
-  .summary-value { font-size: 18px; }
+  .summary-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .summary-card { padding: 12px; }
+  .summary-value { font-size: 16px; }
+  .summary-label { font-size: 10px; }
+  .summary-sub { font-size: 10px; }
 
   /* Two/three col vira coluna única */
   .two-col, .three-col { grid-template-columns: 1fr; gap: 12px; }
 
   /* Cards menos padding */
-  .card, .strategy-card { padding: 16px; }
+  .card, .strategy-card { padding: 14px; margin-bottom: 12px; }
 
   /* Form grid coluna única */
   .form-grid { grid-template-columns: 1fr; }
   .form-group.full { grid-column: 1; }
 
-  /* Botões full width no mobile */
+  /* Botões */
   .btn-primary { width: 100%; justify-content: center; }
 
   /* Gasto item compacto */
-  .gasto-item { gap: 8px; padding: 12px 0; }
+  .gasto-item { gap: 8px; padding: 10px 0; }
   .gasto-valor { font-size: 13px; min-width: 70px; }
 
   /* Tabela scroll horizontal */
-  table { font-size: 12px; }
+  #panorama-tabela { overflow-x: auto; }
+  table { font-size: 12px; min-width: 300px; }
   td, th { padding: 8px 4px; }
 
   /* Panorama chart menor */
@@ -531,25 +544,25 @@ td { padding: 12px 0; border-top: 0.5px solid var(--border); font-size: 13px; ve
   /* Tipo toggle */
   .tipo-btn { padding: 10px 8px; font-size: 12px; }
 
-  /* Alert margin */
+  /* Alert */
   .alert { font-size: 12px; padding: 10px 12px; }
 
   /* Progress */
   .prog-header { font-size: 11px; }
 
   /* Method rows */
-  .method-pct { font-size: 22px; width: 50px; }
-  .method-val { font-size: 14px; }
+  .method-pct { font-size: 20px; width: 46px; }
+  .method-val { font-size: 13px; }
 
-  /* Safe area bottom (iPhone notch) */
-  .sidebar { padding-bottom: env(safe-area-inset-bottom); }
+  /* Fixo item */
+  .fixo-item { flex-wrap: wrap; }
 }
 
 @media (max-width: 380px) {
   .nav-item { font-size: 9px; }
-  .nav-item .icon { font-size: 18px; }
-  .summary-value { font-size: 16px; }
-  .main { padding: 16px 12px 85px 12px; }
+  .nav-item .icon { font-size: 16px; }
+  .summary-value { font-size: 14px; }
+  .main { padding: 16px 12px 95px 12px; }
 }
 </style>
 </head>
