@@ -212,10 +212,20 @@ input, select, textarea {
   transition: border-color 0.15s;
   outline: none;
   width: 100%;
+  -webkit-text-fill-color: var(--text);
+  opacity: 1;
 }
 
 input:focus, select:focus { border-color: var(--accent); }
-input::placeholder { color: var(--muted); }
+input::placeholder { color: var(--muted); -webkit-text-fill-color: var(--muted); }
+
+/* Forçar cor do texto em inputs no iOS/Safari */
+input[type="text"],
+input[type="number"],
+input[type="date"] {
+  -webkit-text-fill-color: var(--text);
+  color: var(--text);
+}
 
 /* Buttons */
 .btn {
@@ -556,6 +566,24 @@ td { padding: 12px 0; border-top: 0.5px solid var(--border); font-size: 13px; ve
 
   /* Fixo item */
   .fixo-item { flex-wrap: wrap; }
+
+  /* Inputs maiores e mais visíveis no mobile */
+  input, select, textarea {
+    font-size: 16px; /* evita zoom automático no iOS */
+    padding: 12px 14px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    -webkit-text-fill-color: var(--text);
+  }
+
+  input::placeholder {
+    color: var(--muted);
+    -webkit-text-fill-color: var(--muted);
+  }
+
+  .form-label { font-size: 12px; margin-bottom: 4px; }
+  .form-group { gap: 6px; margin-bottom: 4px; }
 }
 
 @media (max-width: 380px) {
@@ -929,19 +957,20 @@ function goPage(name) {
 function buildMeses() {
   const meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
   const now = new Date();
+  const anoAtual = now.getFullYear();
   const selectors = ['month-sel', 'month-sel-mobile'];
   selectors.forEach(sid => {
     const sel = document.getElementById(sid);
     if (!sel) return;
     sel.innerHTML = '';
-    for (let i = 5; i >= -1; i--) {
-      const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-      const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+    // Mostrar todos os 12 meses do ano atual
+    for (let mi = 0; mi < 12; mi++) {
+      const key = `${anoAtual}-${String(mi+1).padStart(2,'0')}`;
       const opt = document.createElement('option');
       opt.value = key;
       opt.textContent = sid === 'month-sel-mobile'
-        ? `${meses[d.getMonth()].slice(0,3)} ${d.getFullYear()}`
-        : `${meses[d.getMonth()]} ${d.getFullYear()}`;
+        ? `${meses[mi].slice(0,3)} ${anoAtual}`
+        : `${meses[mi]} ${anoAtual}`;
       if (key === currentMes) opt.selected = true;
       sel.appendChild(opt);
     }
