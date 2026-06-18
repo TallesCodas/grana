@@ -787,10 +787,12 @@ td { padding: 12px 0; border-top: 0.5px solid var(--border); font-size: 13px; ve
           <div class="card">
             <div class="card-title">Gastos fixos mensais</div>
             <div id="fixos-list"></div>
-            <div style="display:flex;gap:8px;margin-top:16px">
-              <input type="text" id="fixo-nome" placeholder="Descrição (ex: Aluguel)" style="flex:1">
-              <input type="number" id="fixo-val" placeholder="R$" style="width:90px">
-              <button class="btn btn-sm btn-primary" onclick="addFixo()">＋</button>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:16px">
+              <input type="text" id="fixo-nome" placeholder="Nome do gasto (ex: Aluguel)" style="width:100%;background:#F5F2EC;color:#1A1814;-webkit-text-fill-color:#1A1814;border:1.5px solid #C8C4BB;border-radius:8px;padding:14px;font-size:16px;font-family:'Sora',sans-serif">
+              <div style="display:flex;gap:8px">
+                <input type="number" id="fixo-val" placeholder="Valor em R$" style="flex:1;background:#F5F2EC;color:#1A1814;-webkit-text-fill-color:#1A1814;border:1.5px solid #C8C4BB;border-radius:8px;padding:14px;font-size:16px;font-family:'Sora',sans-serif">
+                <button class="btn btn-primary" onclick="addFixo()" style="flex-shrink:0;width:auto;padding:14px 20px;font-size:18px">＋</button>
+              </div>
             </div>
           </div>
         </div>
